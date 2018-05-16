@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Helmet from "react-helmet";
+import faviconPNG from "../../static/icon-32.png";
 import "./index.css";
 
 const Layout = ({ children, data }) => (
@@ -11,7 +12,9 @@ const Layout = ({ children, data }) => (
         { name: "description", content: "Sample" },
         { name: "keywords", content: "sample, something" }
       ]}
-    />
+    >
+      <link rel="icon" type="image/png" sizes="32x32" href={faviconPNG} />
+    </Helmet>
     {children()}
   </div>
 );

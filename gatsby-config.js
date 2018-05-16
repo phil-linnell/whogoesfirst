@@ -21,7 +21,16 @@ module.exports = {
         background_color: "#222",
         theme_color: "#222",
         display: "minimal-ui",
-        icon: "static/icon.png",
+        icons: [
+          {
+            src: "static/icon-128.png",
+            sizes: "128x128",
+          },
+          {
+            src: "static/icon-256.png",
+            sizes: "256x256"
+          }
+        ]
       },
     }
   ]
