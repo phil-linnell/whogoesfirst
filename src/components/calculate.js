@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import classNames from 'classnames';
+import React, { Component } from "react";
+import classNames from "classnames";
 
 class Calculate extends Component {
   constructor(props) {
@@ -22,48 +22,48 @@ class Calculate extends Component {
     if (this.state.activeCalculating) {
       const poolElement = this.refs.pool;
 
-      const totalWidth = ((this.props.poolToChoose.length * 10) + 1) * 120;
+      const totalWidth = (this.props.poolToChoose.length * 10 + 1) * 120;
 
       poolElement.style.width = `${totalWidth}px`;
       poolElement.style.transform = `translateX(-${totalWidth - 120}px)`;
     }
   }
 
-
   render() {
     const pool = [];
     let extraClass;
     if (this.props.isAmount) {
-      extraClass = "contender-amount"
+      extraClass = "contender-amount";
     } else {
-      extraClass = "contender-colour"
+      extraClass = "contender-colour";
     }
 
-    let letters = ['A','B','C','D','E','F','G','H', 'I', 'J'];
+    let letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < letters.length; i++) {
       this.props.poolToChoose.map(candidate => {
         let letter = letters[candidate - 1];
         pool.push(
           <li
             className={`contender ${candidate} ${extraClass}`}
-            key={`${candidate}-${i}`}>
+            key={`${candidate}-${i}`}
+          >
             <span className="number">{letter}</span>
           </li>
-        )
-      })
+        );
+      });
     }
 
     pool.push(
       <li
         className={`contender ${this.props.winner} ${extraClass}`}
-        key={`${this.props.winner}-is-the-winner`}>
-        <span className="number">{(letters[this.props.winner - 1])}</span>
+        key={`${this.props.winner}-is-the-winner`}
+      >
+        <span className="number">{letters[this.props.winner - 1]}</span>
       </li>
     );
 
-
-    const classes = classNames('calculating-screen', {
+    const classes = classNames("calculating-screen", {
       active: this.state.activeCalculating
     });
 
@@ -75,7 +75,7 @@ class Calculate extends Component {
             {pool}
           </ul>
         </div>
-        <div className="copy"></div>
+        <div className="copy" />
       </div>
     );
   }

@@ -20,7 +20,8 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write 'src/**/*.js'",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier": "prettier --write '{./,__{tests,mocks}__}/**/*.+(js|jsx)'"
   },
   "devDependencies": {
     "prettier": "^1.12.0"
