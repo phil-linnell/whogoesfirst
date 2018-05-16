@@ -1,0 +1,644 @@
+// TODO: Move this to JSON
+playerColour = {
+  yellow: #e7e00f,
+  red: #e71f0f,
+  white: #cccccc,
+  blue: #1128d4,
+  green: #268b13,
+  black: black,
+  pink: #82008d,
+  orange: #e17a00
+}
+
+
+amount = 8;
+rows = 3;
+cols = 3;
+
+
+// Width of the main area
+canvas = 200px;
+
+// Starting size of player colour
+player = 50px;
+
+button-size = 100px;
+
+// Size of container to which 'player' resides
+item = canvas / rows;
+
+// If using 'circle' layout and cDiam = canvas then this
+// is the left offset needed to centre everything
+offset = item;
+
+
+duration-position-set = .2s
+
+calculating-tunnel-margin = 20px;
+
+calculating-colour = #222;
+secondary-colour = #888;
+
+
+
+@keyframes readyAnimation {
+  from {
+    transform: rotate(-45deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes readyPop {
+  0% {
+    transform: scale(.7);
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  70% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+// Core
+
+.getplayer {
+  // width: 320px;
+  margin: 0 auto;
+
+  .circles.default {
+    width: canvas;
+    height: canvas;
+  }
+
+  .circles {
+    position: relative;
+    // color: palette(colour, yellow);
+  }
+
+  .circles.default li {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: item;
+    height: @width;
+    cursor: pointer;
+    transition: all duration-position-set ease-in-out;
+  }
+
+  &.ready {
+    .circles.default {
+      // animation: readyAnimation .65s ease-in-out 1;
+      animation-fill-mode: forwards;
+
+      > li {
+
+        &:after {
+          opacity: 0;
+          transform: scale(.5);
+          animation: readyPop .3s ease-in-out 1;
+          animation-fill-mode: forwards;
+        }
+
+        &:nth-child(2):after {
+          animation-delay: .05s;
+        }
+
+        &:nth-child(1):after,
+        &:nth-child(3):after {
+          animation-delay: .13s;
+        }
+        &:nth-child(8):after,
+        &:nth-child(4):after {
+          animation-delay: .21s;
+        }
+        &:nth-child(7):after,
+        &:nth-child(5):after {
+          animation-delay: .29s;
+        }
+        &:nth-child(6):after {
+          animation-delay: .37s;
+        }
+      }
+    }
+  }
+
+
+
+  // States and colours
+  @keyframes pop {
+    50% {
+      transform: scale(1.4);
+    }
+    100% {
+      transform: scale(1.3);
+    }
+  }
+  @keyframes popBack {
+    0% {
+      transform: scale(1.3)
+    }
+    50% {
+      transform: scale(0.9);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  li {
+    transition: all .2s ease-in-out;
+    animation: popBack .2s ease-in-out 1;
+    animation-fill-mode: forwards;
+
+    for colour, value in playerColour {
+      &.{colour}:after,
+      &.{colour}:before {
+        background-color: value;
+      }
+    }
+
+    &[class*="player"] {
+      &:after {
+        background-color: #444;
+        line-height: player;
+      }
+    }
+
+    for number in 1..8 {
+      &[class*="player"]:nth-child({number}):after {
+        content: unquote('"' + (number+1) + '"')
+      }
+    }
+
+    &[aria-selected="true"] {
+
+      &:after {
+        box-shadow: inset 0 0 0 1px #fff;
+      }
+    }
+
+
+    &.black:after {
+      box-shadow: inset 0 0 0 2px #333;
+    }
+
+    &[aria-selected="true"] {
+      animation: pop .2s ease-in-out 1;
+      animation-fill-mode: forwards;
+    }
+
+    &:after {
+      content: "";
+      display: block;
+      width: player;
+      height: @width;
+      border-radius: player * .5;
+    }
+  }
+
+  li:not([class*="-player"]) {
+    &[aria-selected="true"] {
+
+      &:after {
+        background-image: url(../../static/pawn.png);
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        background-size: 14px auto;
+      }
+
+      &.black:after {
+        background-image: url(../../static/pawn-white.png);
+      }
+    }
+  }
+
+
+
+
+
+
+  // Animate
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes disappear {
+    0% {
+      transform: scale(1);
+    }
+    45% {
+      transform: scale(0.5);
+    }
+    90% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+
+
+  @keyframes disappearPlayer {
+    100% {
+      transform: scale(0);
+    }
+  }
+
+  .players[class*="animate-"] {
+    animation: spin .4s linear infinite;
+
+    .circles {
+      transition: transform .5s linear;
+      animation: disappear 3s linear 1;
+      li {
+        transition: all .32s ease-out;
+        animation: disappearPlayer .5s linear 1 2.5s;
+
+        &:after {
+          box-shadow: none;
+        }
+      }
+    }
+
+    &.stopped {
+      animation: none;
+
+      .circles {
+        animation: none;
+        transform: scale(.8) !important;
+      }
+      li:not(.winner) {
+        opacity: 0;
+        transition: none;
+      }
+
+      @keyframes result {
+        0% {
+          transform: scale(0);
+        }
+        70% {
+          transform: scale(6);
+        }
+        100% {
+          transform: scale(5);
+        }
+      }
+
+      .winner {
+        top: 50% !important;
+        left: 50% !important;
+        margin-top: - item * 0.5;
+        margin-left: - item * 0.5;
+        transition: none;
+        transform: scale(5);
+        animation: result .32s 1 linear forwards;
+      }
+    }
+  }
+
+  // Position in a circle path
+  for i in 1..amount {
+    .circles.default {
+      cDiam = canvas - ((amount - i) * 24px);
+      cRad  = - cDiam * 0.5; // the negative value here means calculations start top left rather than bottom right
+      offset = (canvas - cDiam) / 2;
+      cAngle = 360deg / i;
+      for i in 1..i {
+        li:nth-child({i}) {
+          left: offset + cRad * cos(cAngle * i) - (item * 0.5) - cRad;
+          top: offset + cRad * sin(cAngle * i) - (item * 0.5) - cRad;
+        }
+      }
+    }
+  }
+
+
+
+}
+
+
+@keyframes calculateAnimation {
+  0% {
+    transform: scale(0.8);
+  }
+  90% {
+    transform: scale(0.8);
+  }
+  95% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+ // Layout
+
+ .getplayer {
+  //  width: 320px;
+   height: 100%;
+   margin: 0 auto;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+
+   .copy {
+    //  height: 40px;
+    width: 100%;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+     line-height: 40px;
+
+     .copy-inner {
+       width: 100%;
+     }
+
+     button {
+       text-transform: uppercase;
+     }
+   }
+
+   .players,
+   .calculating-wrapper {
+     margin: 25px 0;
+   }
+
+   .button {
+     width: button-size;
+     height: button-size;
+     border-radius: 50%;
+     background: calculating-colour;
+     position: absolute;
+     left: 50%;
+     top: 50%;
+     margin-top: - button-size * .5;
+     margin-left: - button-size * .5;
+     transition: transform .32s ease-in-out;
+   }
+   .button button {
+     display: block;
+     margin: 10px;
+     width: button-size - (2 * 10px);
+     height: button-size - (2 * 10px);
+     font-weight: bold;
+     color: #fff;
+     text-align: center;
+     line-height: button-size - (2 * 20px);
+     font-size: 22px;
+     transition: all .2s ease-in-out;
+     cursor: pointer;
+
+     &.hidden {
+       display: none;
+     }
+   }
+
+   .toggle {
+     position: relative;
+      display: inline-block;
+      width: 50px;
+      margin: 0 10px;
+      height: 30px;
+      background: #444;
+      border-radius: 15px;
+      cursor: pointer;
+   }
+
+   .toggle-bit {
+     position: absolute;
+     left: 2px;
+     top: 2px;
+     height: 26px;
+     width: 26px;
+     border-radius: 50%;
+     background-color: #666;
+     transition: left .2s ease-in-out;
+   }
+
+   .toggle[aria-selected="true"] {
+     .toggle-bit {
+       left: 22px;
+     }
+   }
+
+   .choose {
+     position: relative;
+     width: 100%;
+     line-height: 1.3;
+
+     .extra-text {
+       line-height: 1;
+       color: secondary-colour;
+       text-align: center;
+       font-size: 13px;
+       margin-top: 10px;
+     }
+   }
+
+   .choose2 {
+     button {
+       text-align: right;
+       color: secondary-colour;
+       line-height: 1.2;
+       font-size: 16px;
+
+       &:last-child {
+         text-align: left;
+       }
+
+       &[aria-selected="true"] {
+         color: white;
+       }
+     }
+   }
+
+   .toggle-wrapper {
+     display: flex;
+     flex-direction: row;
+     align-items: center;
+
+     button {
+       flex: 1;
+     }
+   }
+
+   .extra-content {
+     height: 30px;
+     line-height: 30px;
+   }
+
+  .reset {
+    position: absolute;
+    z-index: 99999;
+    width: 100%;
+    bottom: 80px;
+    left: 0;
+    display: none;
+    color: secondary-colour;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .error {
+    opacity: .7;
+    color: #e71f0f;
+    font-size: 12px;
+    text-transform: none;
+  }
+
+  &.calculate {
+
+    .players,
+    .choose,
+    .choose2 {
+      opacity: 0;
+      transition: opacity .2s ease-in-out;
+    }
+
+    .reset {
+      opacity: 1;
+      display: block;
+      transition: opacity .32s ease-in-out 2s;
+    }
+
+    .calculating-screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      opacity: 0;
+      transition: opacity .32s ease-in-out;
+
+      &.active {
+        opacity: 1;
+      }
+    }
+
+    .button {
+      transform: scale(1.2);
+
+      button {
+        cursor: default;
+        transform: scale(0);
+        transition: transform .2s ease-in-out;
+      }
+    }
+
+    .calculating-wrapper {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      overflow: hidden;
+      transform: translateZ(0);
+
+      // &:before,
+      // &:after {
+      //   position: absolute;
+      //   top: 0;
+      //   z-index: 99;
+      //   content: "";
+      //   background: linear-gradient(to right,  rgba(calculating-colour,1) 0%,rgba(calculating-colour,0) 100%);
+      //   height: player * 2;
+      //   width: calculating-tunnel-margin * .5;
+      // }
+      //
+      // &:before {
+      //   left: 0;
+      // }
+      //
+      // &:after {
+      //   right: 0;
+      //   transform: rotate(180deg);
+      // }
+    }
+
+    .circles.calculating {
+      display: flex;
+      // padding: 0 calculating-tunnel-margin * .5;
+      transition: transform 2s cubic-bezier(0,.4,0,1);
+      transform: translateZ(0);
+
+      .contender-colour {
+        position: relative;
+        width: 120px;
+        height: 103px;
+        margin-top: 17px;
+        display: flex;
+        justify-content: center;
+
+        .number {
+          display: none;
+        }
+
+        &:after {
+          width: player;
+          height: player;
+          box-shadow: none;
+          transform: scale(0.8);
+        }
+        &:before {
+          content: "";
+          height: player * .5;
+          width: player;
+          border-radius: player player 0 0;
+          display: block;
+          position: absolute;
+          top: 44px;
+          transform: scale(1, 1.6);
+        }
+      }
+
+      .contender-amount {
+        position: relative;
+        width: 120px;
+        height: 85px;
+        margin-top: 35px;
+        display: flex;
+        justify-content: center;
+
+        &:after {
+          content: "";
+          display: block;
+          width: player;
+          height: @width;
+          border-radius: player * .5;
+          background-color: black;
+          z-index: 1;
+        }
+
+        .number {
+          display: block;
+          position: absolute;
+          z-index: 2;
+          width: player;
+          height: @width;
+          color: white;
+          line-height: @width;
+        }
+      }
+
+    }
+  }
+
+ }

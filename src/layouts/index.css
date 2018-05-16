@@ -1,0 +1,115 @@
+* {
+  box-sizing: border-box;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+button {
+  border: none;
+  padding: 0;
+  background: transparent;
+  &:focus {
+    outline: 0;
+  }
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-weight: normal;
+}
+
+a {
+  text-decoration: none;
+}
+
+dl, dd {
+  margin: 0;
+}
+
+input {
+  border: none;
+}
+
+input:focus,
+textarea:focus {
+  outline: 0;
+}
+
+table, thead, tbody {
+  display: block;
+}
+
+button {
+  outline: 0;
+}
+
+div, li, button {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  font-family: Avenir, "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif;
+  text-align: center;
+  font-size: 18px;
+  min-height: 100%;
+  background: #111;
+  color: #fff;
+  height: 100%;
+  width: 100%;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+#root {
+  height: 100%;
+}
+
+#test {
+  background: #ccc;
+  padding: 100px;
+}
+
+input {
+  border: 1px solid #ccc;
+}
+
+h1 {
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.container {
+  height: 100vh;
+}
+
+.hidden {
+  opacity: 0 !important;
+}
+
+#___gatsby,
+#___gatsby > div {
+  height: 100%;
+}
+
+/* user-select() {
+  -webkit-touch-callout: arguments;
+  -webkit-user-select: arguments;
+  -khtml-user-select: arguments;
+  -moz-user-select: arguments;
+  -ms-user-select: arguments;
+  user-select: arguments;
+}
+appearance() {
+  -webkit-appearance: arguments;
+  -moz-appearance: arguments;
+  appearance: arguments;
+} */
