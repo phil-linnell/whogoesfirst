@@ -164,14 +164,14 @@ class App extends Component {
 
   renderPlayersColour() {
     const colours = [
+      { yellow: "#e7e00f" },
+      { white: "#eeeeee" },
+      { green: "#268b13" },
+      { blue: "#1128d4" },
       { pink: "#82008d" },
       { black: "#000000" },
       { red: "#e71f0f" },
-      { orange: "#e17a00" },
-      { yellow: "#e7e00f" },
-      { white: "#cccccc" },
-      { green: "#268b13" },
-      { blue: "#1128d4" }
+      { orange: "#e17a00" }
     ];
 
     return (
