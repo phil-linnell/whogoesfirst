@@ -1,13 +1,13 @@
 // TODO: Move this to JSON
 playerColour = {
-  yellow: #e7e00f,
-  red: #e71f0f,
+  yellow: #f3eb07,
+  red: #f41604,
   white: #ffffff,
-  blue: #1128d4,
+  blue: #0943e9,
   green: #268b13,
   black: black,
-  pink: #82008d,
-  orange: #e17a00
+  pink: #b9089e,
+  orange: #ef8009
 }
 
 
@@ -169,7 +169,7 @@ secondary-colour = #888;
     &[class*="player"] {
       &:after {
         background-color: #444;
-        line-height: player;
+        line-height: player + 2px;
       }
     }
 
@@ -206,17 +206,22 @@ secondary-colour = #888;
   }
 
   li:not([class*="-player"]) {
+
+    &:after {
+      background-image: url(../../static/pawn.png);
+      background-position: -9999px -9999px;
+      background-repeat: no-repeat;
+      background-size: 14px auto;
+    }
+
+    &.black:after {
+      background-image: url(../../static/pawn-white.png);
+    }
+
     &[aria-selected="true"] {
 
       &:after {
-        background-image: url(../../static/pawn.png);
-        background-repeat: no-repeat;
         background-position: 50% 50%;
-        background-size: 14px auto;
-      }
-
-      &.black:after {
-        background-image: url(../../static/pawn-white.png);
       }
     }
   }
@@ -398,7 +403,7 @@ secondary-colour = #888;
      font-weight: bold;
      color: #fff;
      text-align: center;
-     line-height: button-size - (2 * 20px);
+     line-height: button-size - (2 * 10px) + 2px;
      font-size: 22px;
      transition: all .2s ease-in-out;
      cursor: pointer;
