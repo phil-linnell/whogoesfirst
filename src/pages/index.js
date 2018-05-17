@@ -46,8 +46,9 @@ class App extends Component {
       heading = (
         <div className="copy choose">
           <div className="copy-inner">
+            Assign numbers to players: 1, 2, 3...<br />
             Select total no. of players
-            <div className="extra-text">Assign a number to each player <br />'1, 2, 3...' then press 'GO'</div>
+            <div className="extra-text">Then press 'GO'</div>
           </div>
         </div>
       );
