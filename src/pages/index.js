@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import classNames from "classnames";
 import initReactFastclick from "react-fastclick";
 import Calculate from "../components/calculate";
+import IconMeeple from "../assets/meeple";
 import "./index.styl";
 
 class App extends Component {
@@ -186,7 +187,9 @@ class App extends Component {
               key={Object.keys(colour)}
               aria-selected="false"
               onClick={this.handleSelect.bind(this)}
-            />
+            >
+              <div className="colour-meeple"><IconMeeple /></div>
+            </li>
           );
         })}
       </ul>

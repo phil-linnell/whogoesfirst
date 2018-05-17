@@ -184,9 +184,25 @@ secondary-colour = #999;
       }
     }
 
+    .colour-meeple {
+      display: flex;
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .15s linear;
 
-    &.black:after {
-      // box-shadow: inset 0 0 0 1px #666;
+      svg {
+        width: 18px;
+      }
+    }
+
+
+    &.black .colour-meeple svg {
+      fill: white;
     }
 
     &[aria-selected="true"] {
@@ -194,39 +210,22 @@ secondary-colour = #999;
       animation-fill-mode: forwards;
     }
 
-    &:after,
-    &:before {
+    &:after {
       content: "";
       display: block;
       width: player;
       height: @width;
       border-radius: player * .5;
     }
-    &:before {
-      position: absolute;
-      z-index: 1;
-    }
   }
 
   li:not([class*="-player"]) {
-
-    &:before {
-      background-image: url(../assets/meeple.svg);
-      background-position: -9999px -9999px;
-      background-repeat: no-repeat;
-      background-size: 18px auto;
-      opacity: 0.35;
-    }
-
-    &.black:before {
-      background-image: url(../assets/meeple-white.svg);
-      opacity: 0.25;
-    }
-
     &[aria-selected="true"] {
-
-      &:before {
-        background-position: 50% 50%;
+      .colour-meeple {
+        opacity: .35;
+      }
+      &.black .colour-meeple {
+        opacity: .25;
       }
     }
   }
@@ -582,31 +581,10 @@ secondary-colour = #999;
       border-radius: 50%;
       overflow: hidden;
       transform: translateZ(0);
-
-      // &:before,
-      // &:after {
-      //   position: absolute;
-      //   top: 0;
-      //   z-index: 99;
-      //   content: "";
-      //   background: linear-gradient(to right,  rgba(calculating-colour,1) 0%,rgba(calculating-colour,0) 100%);
-      //   height: player * 2;
-      //   width: calculating-tunnel-margin * .5;
-      // }
-      //
-      // &:before {
-      //   left: 0;
-      // }
-      //
-      // &:after {
-      //   right: 0;
-      //   transform: rotate(180deg);
-      // }
     }
 
     .circles.calculating {
       display: flex;
-      // padding: 0 calculating-tunnel-margin * .5;
       transition: transform 2s cubic-bezier(0,.4,0,1);
       transform: translateZ(0);
 
@@ -617,26 +595,10 @@ secondary-colour = #999;
         margin-top: 17px;
         display: flex;
         justify-content: center;
+        align-items: center;
 
         .number {
           display: none;
-        }
-
-        &:after {
-          width: player;
-          height: player;
-          box-shadow: none;
-          transform: scale(0.8);
-        }
-        &:before {
-          content: "";
-          height: player * .5;
-          width: player;
-          border-radius: player player 0 0;
-          display: block;
-          position: absolute;
-          top: 44px;
-          transform: scale(1, 1.6);
         }
       }
 
