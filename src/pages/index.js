@@ -27,11 +27,6 @@ class App extends Component {
     this.setState({
       ready: true
     });
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      console.log("add");
-    });
   }
 
   render() {

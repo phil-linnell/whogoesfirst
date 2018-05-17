@@ -97,8 +97,8 @@ secondary-colour = #999;
 
   &.ready {
     .circles.default {
-      animation: readyAnimation .65s ease-in-out 1;
-      animation-fill-mode: forwards;
+      // animation: readyAnimation .65s ease-in-out 1;
+      // animation-fill-mode: forwards;
 
       > li {
 
@@ -111,29 +111,20 @@ secondary-colour = #999;
         &:nth-child(1):after {
           animation-delay: .1s;
         }
-        &:nth-child(2):after {
+        &:nth-child(2):after,
+        &:nth-child(8):after {
           animation-delay: .13s;
         }
-        &:nth-child(3):after {
+        &:nth-child(3):after,
+        &:nth-child(7):after {
           animation-delay: .16s;
         }
-        &:nth-child(4):after {
+        &:nth-child(4):after,
+        &:nth-child(6):after {
           animation-delay: .19s;
         }
         &:nth-child(5):after {
           animation-delay: .22s;
-        }
-        &:nth-child(6):after {
-          animation-delay: .25s;
-        }
-        &:nth-child(7):after {
-          animation-delay: .28s;
-        }
-        &:nth-child(8):after {
-          animation-delay: .31s;
-        }
-        &:nth-child(9):after {
-          animation-delay: .34s;
         }
       }
     }
@@ -259,8 +250,6 @@ secondary-colour = #999;
 
   li.contender-amount {
     .pool-item {
-      transform: translateY(calc(-50% - 14px));
-
       svg {
         opacity: 0.7;
       }
@@ -655,7 +644,7 @@ secondary-colour = #999;
         position: relative;
         width: 120px;
         height: 85px;
-        margin-top: 35px;
+        margin-top: 28px;
         display: flex;
         justify-content: center;
 
@@ -667,6 +656,7 @@ secondary-colour = #999;
           height: @width;
           line-height: player + 3px;
           color: white;
+          margin-top: 2px;
         }
       }
 
