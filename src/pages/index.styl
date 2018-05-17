@@ -481,6 +481,9 @@ secondary-colour = #999;
    }
 
    .choose2 {
+     position: relative;
+     z-index: 99999;
+
      button {
        text-align: right;
        color: secondary-colour;
@@ -514,15 +517,16 @@ secondary-colour = #999;
    }
 
   .reset {
-    position: absolute;
     z-index: 99999;
     width: 100%;
-    bottom: 80px;
-    left: 0;
-    display: none;
+    opacity: 0;
     color: secondary-colour;
     font-size: 16px;
     cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
   }
 
   .error {
@@ -536,15 +540,16 @@ secondary-colour = #999;
 
     .players,
     .choose,
-    .choose2 {
+    .choose2 .toggle-wrapper,
+    .choose2 .extra-content {
       opacity: 0;
       transition: opacity .2s ease-in-out;
     }
 
-    .reset {
+    .choose2 .reset {
       opacity: 1;
-      display: block;
       transition: opacity .32s ease-in-out 2s;
+      pointer-events: auto;
     }
 
     .calculating-screen {

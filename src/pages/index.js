@@ -107,6 +107,13 @@ class App extends Component {
               </button>
             </div>
             <div className="extra-content">{error}</div>
+            <div
+              className={resetClasses}
+              ref="reset"
+              onClick={this.resetApp.bind(this)}
+            >
+              Reset
+            </div>
           </div>
         </div>
 
@@ -124,13 +131,6 @@ class App extends Component {
           />
         ) : null}
 
-        <div
-          className={resetClasses}
-          ref="reset"
-          onClick={this.resetApp.bind(this)}
-        >
-          Reset
-        </div>
       </div>
     );
   }
