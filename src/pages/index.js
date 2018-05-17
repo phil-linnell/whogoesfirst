@@ -45,22 +45,25 @@ class App extends Component {
       heading = (
         <div className="copy choose">
           <div className="copy-inner">
-            Starting with 'A', assign <br />letters to each player
-            <div className="extra-text">Then select no. of players</div>
+            Select total no. of players
+            <div className="extra-text">Assign a number to each player '1, 2, 3...'<br />then press 'GO'</div>
           </div>
         </div>
       );
     } else {
       heading = (
         <div className="copy choose">
-          <div className="copy-inner">Select players</div>
+          <div className="copy-inner">
+            Select a colour for each player
+            <div className="extra-text">Then press 'GO'</div>
+          </div>
         </div>
       );
     }
 
     let error = "";
     if (this.state.errorAmount) {
-      error = <div className="error">Select the number of people playing</div>;
+      error = <div className="error">Select the total no. of people playing</div>;
     } else if (this.state.errorColour) {
       error = <div className="error">You must select at least two colours</div>;
     }
@@ -98,7 +101,7 @@ class App extends Component {
                 onClick={this.showAmountView.bind(this)}
                 aria-selected="false"
               >
-                No. of players
+                No. of <br />players
               </button>
             </div>
             <div className="extra-content">{error}</div>
