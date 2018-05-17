@@ -27,6 +27,11 @@ class App extends Component {
     this.setState({
       ready: true
     });
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      console.log("add");
+    });
   }
 
   render() {
@@ -167,12 +172,12 @@ class App extends Component {
 
   renderPlayersColour() {
     const colours = [
-      { yellow: "#e7e00f" },
       { white: "#eeeeee" },
+      { yellow: "#e7e00f" },
       { green: "#268b13" },
       { blue: "#1128d4" },
-      { pink: "#82008d" },
       { black: "#000000" },
+      { pink: "#82008d" },
       { red: "#e71f0f" },
       { orange: "#e17a00" }
     ];
@@ -280,7 +285,7 @@ class App extends Component {
 
   resetApp() {
     this.setState({
-      ready: false,
+      ready: true,
       calculate: false,
       poolToChoose: [],
       winner: ""

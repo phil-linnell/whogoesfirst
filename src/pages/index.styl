@@ -43,16 +43,16 @@ secondary-colour = #999;
 
 @keyframes readyAnimation {
   from {
-    transform: rotate(-45deg);
+    transform: rotate(-720deg) scale(0.2);
   }
   to {
-    transform: rotate(0deg);
+    transform: rotate(0deg) scale(1);
   }
 }
 
 @keyframes readyPop {
   0% {
-    transform: scale(.7);
+    transform: scale(.1);
     opacity: 0;
   }
   60% {
@@ -76,6 +76,7 @@ secondary-colour = #999;
   .circles.default {
     width: canvas;
     height: canvas;
+    margin: 0 auto;
   }
 
   .circles {
@@ -96,7 +97,7 @@ secondary-colour = #999;
 
   &.ready {
     .circles.default {
-      // animation: readyAnimation .65s ease-in-out 1;
+      animation: readyAnimation .65s ease-in-out 1;
       animation-fill-mode: forwards;
 
       > li {
@@ -104,28 +105,35 @@ secondary-colour = #999;
         &:after {
           opacity: 0;
           transform: scale(.5);
-          animation: readyPop .3s ease-in-out 1;
+          animation: readyPop .2s ease-in-out 1;
           animation-fill-mode: forwards;
         }
-
-        &:nth-child(2):after {
-          animation-delay: .05s;
+        &:nth-child(1):after {
+          animation-delay: .1s;
         }
-
-        &:nth-child(1):after,
-        &:nth-child(3):after {
+        &:nth-child(2):after {
           animation-delay: .13s;
         }
-        &:nth-child(8):after,
-        &:nth-child(4):after {
-          animation-delay: .21s;
+        &:nth-child(3):after {
+          animation-delay: .16s;
         }
-        &:nth-child(7):after,
+        &:nth-child(4):after {
+          animation-delay: .19s;
+        }
         &:nth-child(5):after {
-          animation-delay: .29s;
+          animation-delay: .22s;
         }
         &:nth-child(6):after {
-          animation-delay: .37s;
+          animation-delay: .25s;
+        }
+        &:nth-child(7):after {
+          animation-delay: .28s;
+        }
+        &:nth-child(8):after {
+          animation-delay: .31s;
+        }
+        &:nth-child(9):after {
+          animation-delay: .34s;
         }
       }
     }
@@ -349,7 +357,7 @@ secondary-colour = #999;
       offset = (canvas - cDiam) / 2;
       cAngle = 360deg / i;
       for i in 1..i {
-        li:nth-child({i}) {
+        li:nth-child({i - 1}) {
           left: offset + cRad * cos(cAngle * i) - (item * 0.5) - cRad;
           top: offset + cRad * sin(cAngle * i) - (item * 0.5) - cRad;
         }
@@ -409,6 +417,7 @@ secondary-colour = #999;
    .players,
    .calculating-wrapper {
      margin: 25px 0;
+     width: 100%;
    }
 
    .button {
