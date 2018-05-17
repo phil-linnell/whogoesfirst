@@ -46,7 +46,7 @@ class App extends Component {
         <div className="copy choose">
           <div className="copy-inner">
             Select total no. of players
-            <div className="extra-text">Assign a number to each player '1, 2, 3...'<br />then press 'GO'</div>
+            <div className="extra-text">Assign a number to each player <br />'1, 2, 3...' then press 'GO'</div>
           </div>
         </div>
       );
@@ -182,7 +182,7 @@ class App extends Component {
         {colours.map(colour => {
           return (
             <li
-              className={Object.keys(colour)}
+              className={`option ${Object.keys(colour)}`}
               key={Object.keys(colour)}
               aria-selected="false"
               onClick={this.handleSelect.bind(this)}

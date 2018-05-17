@@ -16,7 +16,7 @@ module.exports = {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: "Who Goes First?",
-        short_name: "Who Goes First?",
+        short_name: "Who First?",
         start_url: "/",
         background_color: "#222",
         theme_color: "#222",

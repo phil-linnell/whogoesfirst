@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import classNames from "classnames";
+import IconMeeple from "../assets/meeple";
 
 class Calculate extends Component {
   constructor(props) {
@@ -38,17 +39,18 @@ class Calculate extends Component {
       extraClass = "contender-colour";
     }
 
-    let letters = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+    let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 
-    for (var i = 0; i < letters.length; i++) {
+    for (var i = 0; i < numbers.length; i++) {
       this.props.poolToChoose.map(candidate => {
-        let letter = letters[candidate - 1];
+        let number = numbers[candidate - 1];
         pool.push(
           <li
             className={`contender ${candidate} ${extraClass}`}
             key={`${candidate}-${i}`}
           >
-            <span className="number">{letter}</span>
+            <span className="number">{number}</span>
+            <div className="pool-item"><IconMeeple /></div>
           </li>
         );
       });
@@ -59,7 +61,8 @@ class Calculate extends Component {
         className={`contender ${this.props.winner} ${extraClass}`}
         key={`${this.props.winner}-is-the-winner`}
       >
-        <span className="number">{letters[this.props.winner - 1]}</span>
+        <span className="number">{numbers[this.props.winner - 1]}</span>
+        <div className="pool-item"><IconMeeple /></div>
       </li>
     );
 

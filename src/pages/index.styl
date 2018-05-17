@@ -154,14 +154,13 @@ secondary-colour = #999;
     }
   }
 
-  li {
+  li:not(.contender) {
     transition: all .2s ease-in-out;
     animation: popBack .2s ease-in-out 1;
     animation-fill-mode: forwards;
 
     for colour, value in playerColour {
-      &.{colour}:after,
-      &.{colour}:before {
+      &.{colour}:after {
         background-color: value;
       }
     }
@@ -196,40 +195,65 @@ secondary-colour = #999;
       animation-fill-mode: forwards;
     }
 
-    &:after {
+    &:after,
+    &:before {
+      position: absolute;
       content: "";
       display: block;
       width: player;
       height: @width;
       border-radius: player * .5;
     }
+    &:before {
+      z-index: 1;
+    }
   }
 
   li:not([class*="-player"]) {
 
-    &:after {
-      background-image: url(../../static/pawn.png);
+    &:before {
+      background-image: url(../assets/meeple.svg);
       background-position: -9999px -9999px;
       background-repeat: no-repeat;
-      background-size: 14px auto;
+      background-size: 18px auto;
+      opacity: 0.35;
     }
 
-    &.black:after {
-      background-image: url(../../static/pawn-white.png);
+    &.black:before {
+      background-image: url(../assets/meeple-white.svg);
+      opacity: 0.25;
     }
 
     &[aria-selected="true"] {
 
-      &:after {
+      &:before {
         background-position: 50% 50%;
       }
     }
   }
 
+  li.contender {
+    .pool-item {
+      position: absolute;
+      top: 50%;
+      transform: translateY(calc(-50% - 8px));
 
+      svg {
+        width: 60px;
+      }
+    }
+    for colour, value in playerColour {
+      &.{colour} .pool-item svg {
+        fill: value;
+      }
+    }
+  }
 
-
-
+  li.contender-amount {
+    .pool-item {
+      transform: translateY(calc(-50% - 14px));
+    }
+  }
 
   // Animate
 
@@ -621,16 +645,6 @@ secondary-colour = #999;
         margin-top: 35px;
         display: flex;
         justify-content: center;
-
-        &:after {
-          content: "";
-          display: block;
-          width: player;
-          height: @width;
-          border-radius: player * .5;
-          background-color: black;
-          z-index: 1;
-        }
 
         .number {
           display: block;
