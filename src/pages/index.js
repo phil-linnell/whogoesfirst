@@ -115,6 +115,9 @@ class App extends Component {
               Reset
             </div>
           </div>
+          <div className="sponsor">
+            Sponsored by <a href="https://www.facebook.com/gbconuk/" target="_blank">GBCon tabletop gaming days</a>
+          </div>
         </div>
 
         <div className="button">
