@@ -386,13 +386,13 @@ secondary-colour = #999;
    justify-content: center;
 
    .copy {
-    //  height: 40px;
-    width: 100%;
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+     width: 100%;
+     flex: 1;
+     display: flex;
+     align-items: center;
+     justify-content: center;
      line-height: 40px;
+     flex-direction: column;
 
      .copy-inner {
        width: 100%;
@@ -520,13 +520,19 @@ secondary-colour = #999;
     z-index: 99999;
     width: 100%;
     opacity: 0;
-    color: secondary-colour;
+    color: white;
     font-size: 16px;
     cursor: pointer;
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 0;
     pointer-events: none;
+    text-align: center;
+  }
+
+  .reset .reset-inner {
+    background: #333;
+    display: inline-block;
+    padding: 0 15px;
   }
 
   .error {

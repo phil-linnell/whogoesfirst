@@ -112,7 +112,7 @@ class App extends Component {
               ref="reset"
               onClick={this.resetApp.bind(this)}
             >
-              Reset
+              <div className="reset-inner">Reset</div>
             </div>
           </div>
           <div className="sponsor">
