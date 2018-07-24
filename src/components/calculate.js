@@ -23,7 +23,7 @@ class Calculate extends Component {
     if (this.state.activeCalculating) {
       const poolElement = this.refs.pool;
 
-      const totalWidth = (this.props.poolToChoose.length * 10 + 1) * 120;
+      const totalWidth = (this.props.poolToChoose.length * 11 + 1) * 120;
 
       poolElement.style.width = `${totalWidth}px`;
       poolElement.style.transform = `translateX(-${totalWidth - 120}px)`;
@@ -39,7 +39,7 @@ class Calculate extends Component {
       extraClass = "contender-colour";
     }
 
-    let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+    let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"];
 
     for (var i = 0; i < numbers.length; i++) {
       this.props.poolToChoose.map(candidate => {

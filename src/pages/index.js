@@ -179,7 +179,9 @@ class App extends Component {
       { black: "#000000" },
       { pink: "#82008d" },
       { red: "#e71f0f" },
-      { orange: "#e17a00" }
+      { orange: "#e17a00" },
+      { brown: "#904e00" },
+      { grey: "#777777" }
     ];
 
     return (
@@ -201,7 +203,7 @@ class App extends Component {
   }
 
   renderPlayersAmount() {
-    const amount = [2, 3, 4, 5, 6, 7, 8, 9];
+    const amount = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
     return (
       <ul className="circles default" ref="playersAmount">

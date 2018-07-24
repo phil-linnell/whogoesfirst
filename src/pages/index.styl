@@ -7,11 +7,13 @@ playerColour = {
   green: #268b13,
   black: black,
   pink: #b9089e,
-  orange: #ef8009
+  orange: #ef8009,
+  grey: #777777,
+  brown: #904e00
 }
 
 
-amount = 8;
+amount = 10;
 rows = 3;
 cols = 3;
 
@@ -171,7 +173,7 @@ secondary-colour = #999;
       }
     }
 
-    for number in 1..8 {
+    for number in 1..10 {
       &[class*="player"]:nth-child({number}):after {
         content: unquote('"' + (number+1) + '"')
       }
@@ -345,7 +347,7 @@ secondary-colour = #999;
       cRad  = - cDiam * 0.5; // the negative value here means calculations start top left rather than bottom right
       offset = (canvas - cDiam) / 2;
       cAngle = 360deg / i;
-      for i in 1..i {
+      for i in 1..i+1 {
         li:nth-child({i - 1}) {
           left: offset + cRad * cos(cAngle * i) - (item * 0.5) - cRad;
           top: offset + cRad * sin(cAngle * i) - (item * 0.5) - cRad;
