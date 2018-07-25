@@ -5,21 +5,22 @@ playerColour = {
   white: #ffffff,
   blue: #0943e9,
   green: #268b13,
-  black: black,
+  purple: rebeccapurple,
   pink: #b9089e,
   orange: #ef8009,
   grey: #777777,
-  brown: #904e00
+  black: black,
+  brown: #904e00,
 }
 
 
-amount = 10;
+amount = 11;
 rows = 3;
 cols = 3;
 
 
 // Width of the main area
-canvas = 200px;
+canvas = 216px;
 
 // Starting size of player colour
 player = 50px;
@@ -173,7 +174,7 @@ secondary-colour = #999;
       }
     }
 
-    for number in 1..10 {
+    for number in 1..11 {
       &[class*="player"]:nth-child({number}):after {
         content: unquote('"' + (number+1) + '"')
       }

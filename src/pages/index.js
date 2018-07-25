@@ -25,24 +25,30 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      ready: true
-    });
+    this.setState({ ready: true });
   }
 
   render() {
+    const {
+      ready,
+      amountView,
+      calculate,
+      poolToChoose,
+      winner,
+      errorColour,
+      errorAmount
+    } = this.state;
+
     const classes = classNames("getplayer", {
-      calculate: this.state.calculate,
-      ready: this.state.ready,
-      animationDone: this.state.calculate ? true : false
+      calculate,
+      ready,
+      animationDone: calculate ? true : false
     });
 
-    const resetClasses = classNames("reset", {
-      resetActive: this.state.resetActive
-    });
+    const resetClasses = classNames("reset");
 
     let heading = "";
-    if (this.state.amountView) {
+    if (amountView) {
       heading = (
         <div className="copy choose">
           <div className="copy-inner">
@@ -64,9 +70,9 @@ class App extends Component {
     }
 
     let error = "";
-    if (this.state.errorAmount) {
+    if (errorAmount) {
       error = <div className="error">Select the total no. of people playing</div>;
-    } else if (this.state.errorColour) {
+    } else if (errorColour) {
       error = <div className="error">You must select at least two colours</div>;
     }
 
@@ -75,7 +81,7 @@ class App extends Component {
         {heading}
 
         <div className="players">
-          {this.state.amountView === true
+          {amountView
             ? this.renderPlayersAmount()
             : this.renderPlayersColour()}
         </div>
@@ -126,13 +132,13 @@ class App extends Component {
           </button>
         </div>
 
-        {this.state.calculate === true ? (
+        {calculate && (
           <Calculate
-            poolToChoose={this.state.poolToChoose}
-            winner={this.state.winner}
-            isAmount={this.state.amountView}
+            poolToChoose={poolToChoose}
+            winner={winner}
+            isAmount={amountView}
           />
-        ) : null}
+        )}
 
       </div>
     );
@@ -176,12 +182,13 @@ class App extends Component {
       { yellow: "#e7e00f" },
       { green: "#268b13" },
       { blue: "#1128d4" },
-      { black: "#000000" },
+      { purple: "rebeccapurple" },
       { pink: "#82008d" },
       { red: "#e71f0f" },
       { orange: "#e17a00" },
       { brown: "#904e00" },
-      { grey: "#777777" }
+      { black: "#000000" },
+      { grey: "#777777" },
     ];
 
     return (
@@ -203,7 +210,7 @@ class App extends Component {
   }
 
   renderPlayersAmount() {
-    const amount = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+    const amount = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
     return (
       <ul className="circles default" ref="playersAmount">
