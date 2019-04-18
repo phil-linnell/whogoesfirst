@@ -39,7 +39,7 @@ class Calculate extends Component {
       extraClass = "contender-colour";
     }
 
-    let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
+    let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"];
 
     for (var i = 0; i < numbers.length; i++) {
       this.props.poolToChoose.map(candidate => {

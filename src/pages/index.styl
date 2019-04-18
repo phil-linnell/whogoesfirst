@@ -3,7 +3,8 @@ playerColour = {
   yellow: #f3eb07,
   red: #f41604,
   white: #ffffff,
-  blue: #0943e9,
+  blue: #0941f6,
+  turquoise: #00d1ca,
   green: #268b13,
   purple: rebeccapurple,
   pink: #b9089e,
@@ -14,7 +15,7 @@ playerColour = {
 }
 
 
-amount = 11;
+amount = 12;
 rows = 3;
 cols = 3;
 
@@ -174,7 +175,7 @@ secondary-colour = #999;
       }
     }
 
-    for number in 1..11 {
+    for number in 1..amount {
       &[class*="player"]:nth-child({number}):after {
         content: unquote('"' + (number+1) + '"')
       }
@@ -356,8 +357,6 @@ secondary-colour = #999;
       }
     }
   }
-
-
 
 }
 

@@ -52,18 +52,16 @@ class App extends Component {
       heading = (
         <div className="copy choose">
           <div className="copy-inner">
-            Assign numbers to players: 1, 2, 3...<br />
-            Select total no. of players
-            <div className="extra-text">Then press 'GO'</div>
+            Assign numbers to <br />each player: 1, 2, 3...
           </div>
+          <div className="extra-text">Select no. of players and 'Go'</div>
         </div>
       );
     } else {
       heading = (
         <div className="copy choose">
           <div className="copy-inner">
-            Select a colour for each player
-            <div className="extra-text">Then press 'GO'</div>
+            Select a colour <br />for each player
           </div>
         </div>
       );
@@ -181,6 +179,7 @@ class App extends Component {
       { white: "#eeeeee" },
       { yellow: "#e7e00f" },
       { green: "#268b13" },
+      { turquoise: "#06e6e9" },
       { blue: "#1128d4" },
       { purple: "rebeccapurple" },
       { pink: "#82008d" },
@@ -188,7 +187,7 @@ class App extends Component {
       { orange: "#e17a00" },
       { brown: "#904e00" },
       { black: "#000000" },
-      { grey: "#777777" },
+      { grey: "#777777" }
     ];
 
     return (
@@ -210,10 +209,10 @@ class App extends Component {
   }
 
   renderPlayersAmount() {
-    const amount = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    const amount = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
 
     return (
-      <ul className="circles default" ref="playersAmount">
+      <ul className="circles default circles-numbers" ref="playersAmount">
         {amount.map(number => {
           return (
             <li
