@@ -2,7 +2,7 @@ const nib = require("nib");
 
 module.exports = {
   siteMetadata: {
-    title: "Who goes first?"
+    title: "Start player"
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -15,8 +15,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: "Who Goes First?",
-        short_name: "Who First?",
+        name: "Start player?",
+        short_name: "Start player?",
         start_url: "/",
         background_color: "#222",
         theme_color: "#222",

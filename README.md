@@ -1,6 +1,6 @@
-# Who goes first?
+# Start player
 
-Simple app to determine who goes first based on player colour or number of players.
+Simple app to determine the start player based on player colour or number of players.
 
 ### Develop
 ```

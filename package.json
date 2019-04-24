@@ -1,6 +1,6 @@
 {
-  "name": "whogoesfirst",
-  "description": "App to determine who goes first.",
+  "name": "startplayer",
+  "description": "App to determine start player.",
   "version": "1.0.0",
   "author": "Phil Linnell",
   "dependencies": {
