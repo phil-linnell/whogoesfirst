@@ -23,7 +23,7 @@ class Calculate extends Component {
     if (this.state.activeCalculating) {
       const poolElement = this.refs.pool;
 
-      const totalWidth = (this.props.poolToChoose.length * 12 + 1) * 120;
+      const totalWidth = (this.props.poolToChoose.length * 13 + 1) * 120;
 
       poolElement.style.width = `${totalWidth}px`;
       poolElement.style.transform = `translateX(-${totalWidth - 120}px)`;
@@ -31,9 +31,11 @@ class Calculate extends Component {
   }
 
   render() {
+    const { poolToChoose, winner, isAmount } = this.props;
+
     const pool = [];
     let extraClass;
-    if (this.props.isAmount) {
+    if (isAmount) {
       extraClass = "contender-amount";
     } else {
       extraClass = "contender-colour";
@@ -42,7 +44,7 @@ class Calculate extends Component {
     let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"];
 
     for (var i = 0; i < numbers.length; i++) {
-      this.props.poolToChoose.map(candidate => {
+      poolToChoose.map(candidate => {
         let number = numbers[candidate - 1];
         pool.push(
           <li
@@ -58,10 +60,10 @@ class Calculate extends Component {
 
     pool.push(
       <li
-        className={`contender ${this.props.winner} ${extraClass}`}
-        key={`${this.props.winner}-is-the-winner`}
+        className={`contender ${winner} ${extraClass}`}
+        key={`${winner}-is-the-winner`}
       >
-        <span className="number">{numbers[this.props.winner - 1]}</span>
+        <span className="number">{numbers[winner - 1]}</span>
         <div className="pool-item"><IconMeeple /></div>
       </li>
     );

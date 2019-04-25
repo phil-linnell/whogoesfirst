@@ -176,18 +176,18 @@ class App extends Component {
 
   renderPlayersColour() {
     const colours = [
-      { white: "#eeeeee" },
-      { yellow: "#e7e00f" },
+      { grey: "#777777" },
+      { black: "#000000" },
       { green: "#268b13" },
       { turquoise: "#06e6e9" },
       { blue: "#1128d4" },
       { purple: "rebeccapurple" },
       { pink: "#82008d" },
       { red: "#e71f0f" },
-      { orange: "#e17a00" },
       { brown: "#904e00" },
-      { black: "#000000" },
-      { grey: "#777777" }
+      { orange: "#e17a00" },
+      { yellow: "#e7e00f" },
+      { white: "#eeeeee" }
     ];
 
     return (
@@ -251,7 +251,7 @@ class App extends Component {
     if (this.state.amountView) {
       let integer;
       for (let i = 0; i < x.length; i++) {
-        integer = x[i].getAttribute("class").slice(0, 1);
+        integer = x[i].getAttribute("class").slice(0, 1); // TODO
       }
       for (let i = 0; i < integer; i++) {
         selected.push(i + 1);
@@ -261,6 +261,7 @@ class App extends Component {
         selected.push(x[i].getAttribute("class"));
       }
     }
+
 
     let result = selected[Math.floor(Math.random() * selected.length)];
 
