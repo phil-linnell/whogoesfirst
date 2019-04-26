@@ -120,7 +120,7 @@ class App extends Component {
             </div>
           </div>
           <div className="sponsor">
-            Sponsored by <a href="https://www.facebook.com/gbconuk/" target="_blank">GBCon tabletop gaming days</a>
+            Made by <a href="https://www.facebook.com/gbconuk/" target="_blank">GBCon tabletop gaming days</a>
           </div>
         </div>
 
@@ -251,9 +251,9 @@ class App extends Component {
     if (this.state.amountView) {
       let integer;
       for (let i = 0; i < x.length; i++) {
-        integer = x[i].getAttribute("class").slice(0, 1); // TODO
+        integer = x[i].getAttribute("class").match(/[0-9]*/);
       }
-      for (let i = 0; i < integer; i++) {
+      for (let i = 0; i < parseInt(integer); i++) {
         selected.push(i + 1);
       }
     } else {

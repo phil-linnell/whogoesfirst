@@ -1,6 +1,6 @@
 {
   "name": "startplayer",
-  "description": "App to determine start player.",
+  "description": "App to determine Start Player.",
   "version": "1.0.0",
   "author": "Phil Linnell",
   "dependencies": {

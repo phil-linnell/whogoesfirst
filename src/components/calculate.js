@@ -74,7 +74,7 @@ class Calculate extends Component {
 
     return (
       <div className={classes}>
-        <div className="copy result">Start player?</div>
+        <div className="copy result">The Start Player is...</div>
         <div className="calculating-wrapper">
           <ul className="circles calculating" ref="pool">
             {pool}

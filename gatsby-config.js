@@ -2,7 +2,7 @@ const nib = require("nib");
 
 module.exports = {
   siteMetadata: {
-    title: "Start player"
+    title: "Start Player"
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -15,8 +15,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: "Start player?",
-        short_name: "Start player?",
+        name: "Start Player?",
+        short_name: "Start Player?",
         start_url: "/",
         background_color: "#222",
         theme_color: "#222",

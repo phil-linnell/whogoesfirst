@@ -1,6 +1,6 @@
-# Start player
+# Start Player
 
-Simple app to determine the start player based on player colour or number of players.
+Simple app to determine the Start Player based on player colour or number of players.
 
 ### Develop
 ```
