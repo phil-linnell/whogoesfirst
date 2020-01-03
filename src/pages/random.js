@@ -4,7 +4,9 @@ import "./index.styl";
 const randomOptions = [
   "The last person to eat a KFC",
   "The person with the best Chewbacca impression",
-  "The shortest man"
+  "The person wearing the brightest coloured socks",
+  "The person with the most tattoos",
+  "The last person to have eaten a burrito"
 ];
 
 class RandomOption extends Component {
