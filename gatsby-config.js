@@ -5,7 +5,6 @@ module.exports = {
     title: "Start Player"
   },
   plugins: [
-    `gatsby-plugin-preact`,
     `gatsby-plugin-react-helmet`,
     {
       resolve: "gatsby-plugin-stylus",
