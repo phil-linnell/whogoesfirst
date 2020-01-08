@@ -99,3 +99,7 @@ h1 {
 #___gatsby > div {
   height: 100%;
 }
+
+.layout-wrapper {
+  height: 100%;
+}

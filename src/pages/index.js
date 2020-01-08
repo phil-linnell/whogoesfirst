@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Link from "gatsby-link";
 import classNames from "classnames";
 import initReactFastclick from "react-fastclick";
 import Calculate from "../components/calculate";
@@ -120,7 +121,7 @@ class App extends Component {
             </div>
           </div>
           <div className="sponsor">
-            Made by <a href="https://www.facebook.com/gbconuk/" target="_blank">GBCon tabletop gaming days</a>
+            <Link to="/random/">Or try a random decider</Link>
           </div>
         </div>
 
