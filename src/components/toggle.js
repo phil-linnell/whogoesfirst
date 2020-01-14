@@ -7,7 +7,6 @@ const Toggle = ({ activeView, toggleView }) => {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    height: 150px;
   
     button {
       cursor: pointer;

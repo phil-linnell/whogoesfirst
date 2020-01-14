@@ -1,236 +1,170 @@
 import React, { Component } from "react";
-import Link from "gatsby-link";
-import classNames from "classnames";
-import Calculate from "../components/calculate";
-import Toggle from "../components/toggle";
 import Heading from "../components/heading";
-import IconMeeple from "../assets/meeple";
-import "./index.styl";
+import SelectPlayers from "../components/selectPlayers";
+import Toggle from "../components/toggle";
+import options from "../data/options";
+import { css } from "@emotion/core"
 
-const options = [
-  { grey: "#777777" },
-  { black: "#000000" },
-  { green: "#268b13" },
-  { turquoise: "#06e6e9" },
-  { blue: "#1128d4" },
-  { purple: "rebeccapurple" },
-  { pink: "#82008d" },
-  { red: "#e71f0f" },
-  { brown: "#904e00" },
-  { orange: "#e17a00" },
-  { yellow: "#e7e00f" },
-  { white: "#eeeeee" }
-];
+const cssContainer = css`
+  margin: 0 auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+const cssLayoutTop = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  height: 150px;
+`;
+const cssLayoutMiddle = css`
 
-class App extends Component {
+`;
+const cssLayoutBottom = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  height: 150px;
+`;
+const cssCalculateButton = css`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90px;
+  height: 90px;
+  margin: -45px;
+  background: rgba(255,255,255,.1);
+  border-radius: 50%;
+  font-size: 22px;
+  cursor: pointer;
+  font-weight: normal;
+`;
+const cssErrorMessage = css`
+  opacity: .7;
+  color: #e71f0f;
+  font-size: 12px;
+  text-transform: none;
+`;
+
+class Index extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       activeView: "colour",
-      amountView: false,
-      calculate: false,
-      poolToChoose: [],
+      pool: options.map(v => ({ ...v, selected: false })),
+      numberOfPlayers: 0,
       winner: "",
       errorColour: false,
-      errorAmount: false
+      errorNumber: false
     };
 
-    this.resetApp = this.resetApp.bind(this);
-    this.getWinner = this.getWinner.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
+    this.handleCalculate = this.handleCalculate.bind(this);
+    this.handleResetView = this.handleResetView.bind(this);
   }
 
   render() {
-    const {
-      activeView,
-      amountView,
-      calculate,
-      poolToChoose,
+    const { 
+      activeView, 
+      pool, 
+      numberOfPlayers, 
       winner,
       errorColour,
-      errorAmount
+      errorNumber
     } = this.state;
 
-    const classes = classNames("getplayer", {
-      calculate,
-      animationDone: calculate ? true : false
-    });
-
-    const resetClasses = classNames("reset");
-
-    let error = "";
-    if (errorAmount) {
-      error = <div className="error">Select the total no. of people playing</div>;
-    } else if (errorColour) {
-      error = <div className="error">You must select at least two colours</div>;
-    }
+    console.log(winner);
 
     return (
-      <div className={classes}>
-        <Heading activeView={activeView} />
-
-        <div className="players">
-          {activeView === "colour" && this.renderPlayersColour()}
-          {activeView === "number" && this.renderPlayersAmount()}
+      <div css={cssContainer}>
+        <div css={cssLayoutTop}>
+          <Heading activeView={activeView} />
         </div>
-
-        <div className="copy choose2">
-          <div className="copy-inner">
-            <Toggle activeView={activeView} toggleView={this.handleToggle} />
-            <div className="extra-content">{error}</div>
-            <button
-              className={resetClasses}
-              ref="reset"
-              onClick={this.resetApp}
-            >
-              <div className="reset-inner">Reset</div>
-            </button>
-          </div>
-          <div className="sponsor">
-            <Link to="/random/">Or try a random decider</Link>
-          </div>
-        </div>
-
-        <div className="button">
-          <button className="submit" onClick={this.getWinner}>
-            GO
-          </button>
-        </div>
-
-        {calculate && (
-          <Calculate
-            poolToChoose={poolToChoose}
-            winner={winner}
-            isAmount={amountView}
+        <div css={cssLayoutMiddle}>
+          <SelectPlayers 
+            activeView={activeView} 
+            pool={pool} 
+            numberOfPlayers={numberOfPlayers} 
+            selectFunc={this.handleSelect}
           />
-        )}
-
+          <button css={cssCalculateButton} onClick={this.handleCalculate}>GO</button>
+        </div>
+        <div css={cssLayoutBottom}>
+          <div css={cssErrorMessage}>
+            {errorColour && "You must select at least two colours"}
+            {errorNumber && "Select the total no. of people playing"}
+          </div>
+          <Toggle activeView={activeView} toggleView={this.handleToggle} />
+        </div>
       </div>
     );
   }
 
+  handleToggle() {
+    const { activeView } = this.state;
 
-  renderPlayersColour() {
-    return (
-      <ul className="circles default" ref="playersColour">
-        {options.map((colour, i) => {
-          return (
-            <li
-              className={`option ${Object.keys(colour)}`}
-              key={Object.keys(colour)}
-              aria-selected="false"
-              onClick={this.handleSelect}
-            >
-              <div className="colour-meeple"><IconMeeple /></div>
-            </li>
-          );
-        })}
-      </ul>
-    );
-  }
-
-  renderPlayersAmount() {
-    let items = [];
-    for (var i = 0; i < options.length; i++) {
-      items.push(
-        <li
-          className={`${i+2}-player`}
-          key={`${i+2}-player`}
-          aria-selected="false"
-          onClick={this.handleSelect}
-        />
-      );
-    }
-
-    return (
-      <ul className="circles default circles-numbers" ref="playersAmount">
-        {items}
-      </ul>
-    );
-  }
-
-  handleSelect(event) {
     this.setState({
-      errorAmount: false,
-      errorColour: false
+      activeView: activeView === "colour" ? "number" : "colour",
+    });
+    this.handleResetView();
+  }
+
+  handleSelect(i) {
+    const { activeView, pool } = this.state;
+
+    this.setState({
+      errorColour: false,
+      errorNumber: false
     });
 
-    if (this.state.amountView) {
-      let x = document.body.querySelectorAll('li[aria-selected="true"]');
-      for (let i = 0; i < x.length; i++) {
-        x[i].setAttribute("aria-selected", "false");
-      }
-    }
-
-    const selected = event.target.getAttribute("aria-selected") === "true";
-    event.target.setAttribute("aria-selected", selected ? "false" : "true");
-  }
-
-  getWinner() {
-    const { amountView } = this.state;
-    let selected = [];
-    let x = document.body.querySelectorAll('li[aria-selected="true"]');
-
-    if (amountView) {
-      let integer;
-      for (let i = 0; i < x.length; i++) {
-        integer = x[i].getAttribute("class").match(/[0-9]*/);
-      }
-      for (let i = 0; i < parseInt(integer); i++) {
-        selected.push(i + 1);
-      }
+    if (activeView === "colour") {
+      pool[i].selected = !pool[i].selected;
+      this.setState({ pool });
     } else {
-      for (let i = 0; i < x.length; i++) {
-        selected.push(x[i].getAttribute("class"));
-      }
-    }
-
-
-    let result = selected[Math.floor(Math.random() * selected.length)];
-
-    if (amountView) {
-      if (selected.length > 0) {
-        this.setState({
-          calculate: true,
-          poolToChoose: selected,
-          winner: result,
-          errorAmount: false
-        });
-      } else {
-        this.setState({
-          errorAmount: true
-        });
-      }
-    } else {
-      if (selected.length > 1) {
-        this.setState({
-          calculate: true,
-          poolToChoose: selected,
-          winner: result,
-          errorColour: false
-        });
-      } else {
-        this.setState({
-          errorColour: true
-        });
-      }
+      this.setState({
+        numberOfPlayers: i + 2
+      });
     }
   }
 
-  resetApp() {
+  handleCalculate() {
+    const { activeView, pool, numberOfPlayers } = this.state;
+    const poolToChoose = pool.filter(colour => colour.selected);
+
+    let winner;
+    if (activeView === "colour") {
+      if (poolToChoose.length > 1) {
+        winner = poolToChoose[Math.floor(Math.random() * poolToChoose.length)].name;
+      } else {
+        this.setState({ errorColour: true });
+      }
+    } else {
+      if (numberOfPlayers > 1) {
+        winner = Math.floor(Math.random() * numberOfPlayers) + 1;
+      } else {
+        this.setState({ errorNumber: true });
+      }
+    }
+
+    this.setState({ winner });
+  }
+
+  handleResetView() {
+    const { pool } = this.state;
+
     this.setState({
-      calculate: false,
-      poolToChoose: [],
-      winner: ""
+      pool: pool.map(v => ({ ...v, selected: false })),
+      numberOfPlayers: 0,
+      winner: "",
+      errorColour: false,
+      errorNumber: false
     });
-
-    let x = document.body.querySelectorAll('li[aria-selected="true"]');
-
-    for (let i = 0; i < x.length; i++) {
-      x[i].setAttribute("aria-selected", "false");
-    }
   }
 }
 
-export default App;
+export default Index;
