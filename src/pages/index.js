@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import Heading from "../components/heading";
-import SelectPlayers from "../components/selectPlayers";
+import SelectPlayers from "../components/select-players";
 import Toggle from "../components/toggle";
 import options from "../data/options";
 import { css } from "@emotion/core"
+import ShowWinner from "../components/show-winner";
 
+const canvasSize = 226;
 const cssContainer = css`
   margin: 0 auto;
   height: 100vh;
@@ -20,7 +22,7 @@ const cssLayoutTop = css`
   height: 150px;
 `;
 const cssLayoutMiddle = css`
-
+  height: ${canvasSize}px;
 `;
 const cssLayoutBottom = css`
   display: flex;
@@ -33,9 +35,9 @@ const cssCalculateButton = css`
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 90px;
-  height: 90px;
-  margin: -45px;
+  width: 100px;
+  height: 100px;
+  margin: -50px;
   background: rgba(255,255,255,.1);
   border-radius: 50%;
   font-size: 22px;
@@ -56,29 +58,33 @@ class Index extends Component {
     this.state = {
       activeView: "colour",
       pool: options.map(v => ({ ...v, selected: false })),
-      numberOfPlayers: 0,
       winner: "",
-      errorColour: false,
-      errorNumber: false
+      error: false
     };
 
     this.handleToggle = this.handleToggle.bind(this);
-    this.handleSelect = this.handleSelect.bind(this);
-    this.handleCalculate = this.handleCalculate.bind(this);
+    this.handleSelectPlayer = this.handleSelectPlayer.bind(this);
+    this.handleGetWinner = this.handleGetWinner.bind(this);
     this.handleResetView = this.handleResetView.bind(this);
   }
 
   render() {
-    const { 
-      activeView, 
-      pool, 
-      numberOfPlayers, 
-      winner,
-      errorColour,
-      errorNumber
-    } = this.state;
+    const { activeView, pool, winner,error } = this.state;
+
+    let errorMessage;
+    if (error) {
+      errorMessage = 
+        activeView === "colour" ? "You must select at least two colours" : "Select the total no. of people playing";
+    }
 
     console.log(winner);
+
+    const cssSelectPlayers = css`
+      display: ${winner ? "none" : "block"}
+    `;
+    const cssShowWinner = css`
+      display: ${winner ? "block" : "none"}
+    `;
 
     return (
       <div css={cssContainer}>
@@ -86,19 +92,21 @@ class Index extends Component {
           <Heading activeView={activeView} />
         </div>
         <div css={cssLayoutMiddle}>
-          <SelectPlayers 
-            activeView={activeView} 
-            pool={pool} 
-            numberOfPlayers={numberOfPlayers} 
-            selectFunc={this.handleSelect}
-          />
-          <button css={cssCalculateButton} onClick={this.handleCalculate}>GO</button>
+          <div css={cssSelectPlayers}>
+            <SelectPlayers 
+              activeView={activeView} 
+              pool={pool} 
+              selectFunc={this.handleSelectPlayer}
+              canvasSize={canvasSize}
+            />
+            <button css={cssCalculateButton} onClick={this.handleGetWinner}>GO</button>
+          </div>
+          <div css={cssShowWinner}>
+            <ShowWinner activeView={activeView} winner={winner} canvasSize={canvasSize} />
+          </div>
         </div>
         <div css={cssLayoutBottom}>
-          <div css={cssErrorMessage}>
-            {errorColour && "You must select at least two colours"}
-            {errorNumber && "Select the total no. of people playing"}
-          </div>
+          <div css={cssErrorMessage}>{errorMessage}</div>
           <Toggle activeView={activeView} toggleView={this.handleToggle} />
         </div>
       </div>
@@ -114,44 +122,38 @@ class Index extends Component {
     this.handleResetView();
   }
 
-  handleSelect(i) {
+  handleSelectPlayer(i) {
     const { activeView, pool } = this.state;
 
-    this.setState({
-      errorColour: false,
-      errorNumber: false
-    });
+    this.setState({ error: false });
 
     if (activeView === "colour") {
       pool[i].selected = !pool[i].selected;
       this.setState({ pool });
     } else {
-      this.setState({
-        numberOfPlayers: i + 2
-      });
+      pool.forEach(player => player.selected = false);
+      for (let j = 0; j <= i; j++) {
+        pool[j].selected = true;
+      }
     }
   }
 
-  handleCalculate() {
-    const { activeView, pool, numberOfPlayers } = this.state;
-    const poolToChoose = pool.filter(colour => colour.selected);
+  handleGetWinner() {
+    const { activeView, pool } = this.state;
+    const poolToChoose = pool.filter(player => player.selected);
 
-    let winner;
-    if (activeView === "colour") {
-      if (poolToChoose.length > 1) {
-        winner = poolToChoose[Math.floor(Math.random() * poolToChoose.length)].name;
-      } else {
-        this.setState({ errorColour: true });
-      }
+    if (poolToChoose.length > 1) {
+      const winner = Math.floor(Math.random() * poolToChoose.length);
+
+      this.setState({ 
+        winner: activeView === "colour" ? {
+          name: poolToChoose[winner].name,
+          hex: poolToChoose[winner].hex
+        } : winner + 1
+      });
     } else {
-      if (numberOfPlayers > 1) {
-        winner = Math.floor(Math.random() * numberOfPlayers) + 1;
-      } else {
-        this.setState({ errorNumber: true });
-      }
+      this.setState({ error: true });
     }
-
-    this.setState({ winner });
   }
 
   handleResetView() {
@@ -159,10 +161,8 @@ class Index extends Component {
 
     this.setState({
       pool: pool.map(v => ({ ...v, selected: false })),
-      numberOfPlayers: 0,
       winner: "",
-      errorColour: false,
-      errorNumber: false
+      error: false
     });
   }
 }
