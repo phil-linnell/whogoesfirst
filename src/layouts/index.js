@@ -19,6 +19,7 @@ const Layout = ({ children, data }) => (
       <link rel="icon" type="image/png" sizes="128x128" href={faviconPNG128} />
       <link rel="icon" type="image/png" sizes="32x32" href={faviconPNG} />
       <link rel="shortcut icon" href={faviconICO} />
+      <meta name="viewport" content="width=device-width" />
     </Helmet>
     {children}
   </div>

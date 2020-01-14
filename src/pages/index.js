@@ -1,17 +1,33 @@
 import React, { Component } from "react";
 import Link from "gatsby-link";
 import classNames from "classnames";
-import initReactFastclick from "react-fastclick";
 import Calculate from "../components/calculate";
+import Toggle from "../components/toggle";
+import Heading from "../components/heading";
 import IconMeeple from "../assets/meeple";
 import "./index.styl";
+
+const options = [
+  { grey: "#777777" },
+  { black: "#000000" },
+  { green: "#268b13" },
+  { turquoise: "#06e6e9" },
+  { blue: "#1128d4" },
+  { purple: "rebeccapurple" },
+  { pink: "#82008d" },
+  { red: "#e71f0f" },
+  { brown: "#904e00" },
+  { orange: "#e17a00" },
+  { yellow: "#e7e00f" },
+  { white: "#eeeeee" }
+];
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      ready: false,
+      activeView: "colour",
       amountView: false,
       calculate: false,
       poolToChoose: [],
@@ -19,19 +35,15 @@ class App extends Component {
       errorColour: false,
       errorAmount: false
     };
-  }
 
-  componentWillMount() {
-    initReactFastclick();
-  }
-
-  componentDidMount() {
-    this.setState({ ready: true });
+    this.resetApp = this.resetApp.bind(this);
+    this.getWinner = this.getWinner.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
   }
 
   render() {
     const {
-      ready,
+      activeView,
       amountView,
       calculate,
       poolToChoose,
@@ -42,31 +54,10 @@ class App extends Component {
 
     const classes = classNames("getplayer", {
       calculate,
-      ready,
       animationDone: calculate ? true : false
     });
 
     const resetClasses = classNames("reset");
-
-    let heading = "";
-    if (amountView) {
-      heading = (
-        <div className="copy choose">
-          <div className="copy-inner">
-            Assign numbers to <br />each player: 1, 2, 3...
-          </div>
-          <div className="extra-text">Select no. of players and 'Go'</div>
-        </div>
-      );
-    } else {
-      heading = (
-        <div className="copy choose">
-          <div className="copy-inner">
-            Select a colour <br />for each player
-          </div>
-        </div>
-      );
-    }
 
     let error = "";
     if (errorAmount) {
@@ -77,48 +68,24 @@ class App extends Component {
 
     return (
       <div className={classes}>
-        {heading}
+        <Heading activeView={activeView} />
 
         <div className="players">
-          {amountView
-            ? this.renderPlayersAmount()
-            : this.renderPlayersColour()}
+          {activeView === "colour" && this.renderPlayersColour()}
+          {activeView === "number" && this.renderPlayersAmount()}
         </div>
 
         <div className="copy choose2">
           <div className="copy-inner">
-            <div className="toggle-wrapper">
-              <button
-                ref="buttonColour"
-                onClick={this.showColourView.bind(this)}
-                aria-selected="true"
-              >
-                Colour
-              </button>
-              <div
-                className="toggle"
-                ref="toggle"
-                aria-selected="false"
-                onClick={this.handleToggle.bind(this)}
-              >
-                <div className="toggle-bit" />
-              </div>
-              <button
-                ref="buttonAmount"
-                onClick={this.showAmountView.bind(this)}
-                aria-selected="false"
-              >
-                No. of <br />players
-              </button>
-            </div>
+            <Toggle activeView={activeView} toggleView={this.handleToggle} />
             <div className="extra-content">{error}</div>
-            <div
+            <button
               className={resetClasses}
               ref="reset"
-              onClick={this.resetApp.bind(this)}
+              onClick={this.resetApp}
             >
               <div className="reset-inner">Reset</div>
-            </div>
+            </button>
           </div>
           <div className="sponsor">
             <Link to="/random/">Or try a random decider</Link>
@@ -126,7 +93,7 @@ class App extends Component {
         </div>
 
         <div className="button">
-          <button className="submit" onClick={this.getWinner.bind(this)}>
+          <button className="submit" onClick={this.getWinner}>
             GO
           </button>
         </div>
@@ -143,63 +110,17 @@ class App extends Component {
     );
   }
 
-  showAmountView() {
-    this.setState({
-      amountView: true,
-      errorAmount: false,
-      errorColour: false
-    });
-
-    this.refs.buttonAmount.setAttribute("aria-selected", "true");
-    this.refs.buttonColour.setAttribute("aria-selected", "false");
-    this.refs.toggle.setAttribute("aria-selected", "true");
-  }
-
-  showColourView() {
-    this.setState({
-      amountView: false,
-      errorAmount: false,
-      errorColour: false
-    });
-
-    this.refs.buttonAmount.setAttribute("aria-selected", "false");
-    this.refs.buttonColour.setAttribute("aria-selected", "true");
-    this.refs.toggle.setAttribute("aria-selected", "false");
-  }
-
-  handleToggle(event) {
-    if (this.state.amountView) {
-      this.showColourView();
-    } else {
-      this.showAmountView();
-    }
-  }
 
   renderPlayersColour() {
-    const colours = [
-      { grey: "#777777" },
-      { black: "#000000" },
-      { green: "#268b13" },
-      { turquoise: "#06e6e9" },
-      { blue: "#1128d4" },
-      { purple: "rebeccapurple" },
-      { pink: "#82008d" },
-      { red: "#e71f0f" },
-      { brown: "#904e00" },
-      { orange: "#e17a00" },
-      { yellow: "#e7e00f" },
-      { white: "#eeeeee" }
-    ];
-
     return (
       <ul className="circles default" ref="playersColour">
-        {colours.map(colour => {
+        {options.map((colour, i) => {
           return (
             <li
               className={`option ${Object.keys(colour)}`}
               key={Object.keys(colour)}
               aria-selected="false"
-              onClick={this.handleSelect.bind(this)}
+              onClick={this.handleSelect}
             >
               <div className="colour-meeple"><IconMeeple /></div>
             </li>
@@ -210,20 +131,21 @@ class App extends Component {
   }
 
   renderPlayersAmount() {
-    const amount = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+    let items = [];
+    for (var i = 0; i < options.length; i++) {
+      items.push(
+        <li
+          className={`${i+2}-player`}
+          key={`${i+2}-player`}
+          aria-selected="false"
+          onClick={this.handleSelect}
+        />
+      );
+    }
 
     return (
       <ul className="circles default circles-numbers" ref="playersAmount">
-        {amount.map(number => {
-          return (
-            <li
-              className={`${number}-player`}
-              key={`${number}-player`}
-              aria-selected="false"
-              onClick={this.handleSelect.bind(this)}
-            />
-          );
-        })}
+        {items}
       </ul>
     );
   }
@@ -246,10 +168,11 @@ class App extends Component {
   }
 
   getWinner() {
+    const { amountView } = this.state;
     let selected = [];
     let x = document.body.querySelectorAll('li[aria-selected="true"]');
 
-    if (this.state.amountView) {
+    if (amountView) {
       let integer;
       for (let i = 0; i < x.length; i++) {
         integer = x[i].getAttribute("class").match(/[0-9]*/);
@@ -266,7 +189,7 @@ class App extends Component {
 
     let result = selected[Math.floor(Math.random() * selected.length)];
 
-    if (this.state.amountView) {
+    if (amountView) {
       if (selected.length > 0) {
         this.setState({
           calculate: true,
@@ -297,7 +220,6 @@ class App extends Component {
 
   resetApp() {
     this.setState({
-      ready: true,
       calculate: false,
       poolToChoose: [],
       winner: ""

@@ -73,22 +73,22 @@ secondary-colour = #999;
 
 // Core
 
-.getplayer {
+.container {
   // width: 320px;
   margin: 0 auto;
 
-  .circles.default {
+  .options.default {
     width: canvas;
     height: canvas;
     margin: 0 auto;
   }
 
-  .circles {
+  .options {
     position: relative;
     // color: palette(colour, yellow);
   }
 
-  .circles.default li {
+  .options.default li {
     position: absolute;
     display: flex;
     align-items: center;
@@ -97,41 +97,6 @@ secondary-colour = #999;
     height: @width;
     cursor: pointer;
     transition: all duration-position-set ease-in-out;
-  }
-
-  &.ready {
-    .circles.default {
-      // animation: readyAnimation .65s ease-in-out 1;
-      // animation-fill-mode: forwards;
-
-      > li {
-
-        // &:after {
-        //   opacity: 0;
-        //   transform: scale(.5);
-        //   animation: readyPop .2s ease-in-out 1;
-        //   animation-fill-mode: forwards;
-        // }
-        // &:nth-child(1):after {
-        //   animation-delay: .1s;
-        // }
-        // &:nth-child(2):after,
-        // &:nth-child(8):after {
-        //   animation-delay: .13s;
-        // }
-        // &:nth-child(3):after,
-        // &:nth-child(7):after {
-        //   animation-delay: .16s;
-        // }
-        // &:nth-child(4):after,
-        // &:nth-child(6):after {
-        //   animation-delay: .19s;
-        // }
-        // &:nth-child(5):after {
-        //   animation-delay: .22s;
-        // }
-      }
-    }
   }
 
 
@@ -312,7 +277,7 @@ secondary-colour = #999;
   .players[class*="animate-"] {
     animation: spin .4s linear infinite;
 
-    .circles {
+    .options {
       transition: transform .5s linear;
       animation: disappear 3s linear 1;
       li {
@@ -328,7 +293,7 @@ secondary-colour = #999;
     &.stopped {
       animation: none;
 
-      .circles {
+      .options {
         animation: none;
         transform: scale(.8) !important;
       }
@@ -363,7 +328,7 @@ secondary-colour = #999;
 
   // Position in a circle path
   for i in 1..amount {
-    .circles.default {
+    .options {
       cDiam = canvas - ((amount - i) * 24px);
       cRad  = - cDiam * 0.5; // the negative value here means calculations start top left rather than bottom right
       offset = (canvas - cDiam) / 2;
@@ -461,34 +426,6 @@ secondary-colour = #999;
      }
    }
 
-   .toggle {
-     position: relative;
-      display: inline-block;
-      width: 50px;
-      margin: 0 10px;
-      height: 30px;
-      background: #444;
-      border-radius: 15px;
-      cursor: pointer;
-   }
-
-   .toggle-bit {
-     position: absolute;
-     left: 2px;
-     top: 2px;
-     height: 26px;
-     width: 26px;
-     border-radius: 50%;
-     background-color: #999;
-     transition: left .2s ease-in-out;
-   }
-
-   .toggle[aria-selected="true"] {
-     .toggle-bit {
-       left: 22px;
-     }
-   }
-
    .choose {
      position: relative;
      width: 100%;
@@ -519,18 +456,6 @@ secondary-colour = #999;
        &[aria-selected="true"] {
          color: white;
        }
-     }
-   }
-
-   .toggle-wrapper {
-     display: flex;
-     flex-direction: row;
-     align-items: center;
-     margin-bottom: 20px;
-
-     button {
-       flex: 1;
-       font-weight: 600;
      }
    }
 
@@ -623,7 +548,7 @@ secondary-colour = #999;
       transform: translateZ(0);
     }
 
-    .circles.calculating {
+    .options.calculating {
       transition: transform 2s cubic-bezier(0,.4,0,1);
       transform: translateZ(0);
 
