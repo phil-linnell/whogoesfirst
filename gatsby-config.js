@@ -11,6 +11,7 @@ module.exports = {
         policy: [{ userAgent: '*', allow: '/' }]
       }
     },
+    `gatsby-plugin-preact`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-emotion`,
     {
