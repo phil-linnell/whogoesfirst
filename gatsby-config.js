@@ -11,6 +11,17 @@ module.exports = {
         policy: [{ userAgent: '*', allow: '/' }]
       }
     },
+    {
+      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      options: {
+        fonts: [
+          {
+            family: `Raleway`,
+            variants: [`400`, `700`]
+          },
+        ],
+      },
+    },
     `gatsby-plugin-preact`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-emotion`,

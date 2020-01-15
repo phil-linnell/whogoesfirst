@@ -100,7 +100,6 @@ class Index extends Component {
         <Helmet>
           <title>Start Player App</title>
           <meta name="description" content="App to choose the starting player of a game" />
-          <link href="https://fonts.googleapis.com/css?family=Raleway:400,700&display=swap" rel="stylesheet" />
           <link rel="icon" type="image/png" sizes="128x128" href={faviconPNG128} />
           <link rel="icon" type="image/png" sizes="32x32" href={faviconPNG} />
           <link rel="shortcut icon" href={faviconICO} />
