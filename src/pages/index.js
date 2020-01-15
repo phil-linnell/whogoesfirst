@@ -19,7 +19,6 @@ const cssLayoutTop = css`
   flex-direction: column;
   justify-content: center;
   flex: 1;
-  height: 150px;
 `;
 const cssLayoutMiddle = css`
   height: ${canvasSize}px;
@@ -29,7 +28,6 @@ const cssLayoutBottom = css`
   flex-direction: column;
   justify-content: center;
   flex: 1;
-  height: 150px;
 `;
 const cssCalculateButton = css`
   position: absolute;
