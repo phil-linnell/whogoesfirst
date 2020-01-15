@@ -40,7 +40,8 @@ const cssCalculateButton = css`
   border-radius: 50%;
   font-size: 22px;
   cursor: pointer;
-  font-weight: normal;
+  font-weight: 700;
+  color: #fff;
 `;
 const cssErrorMessage = css`
   color: #e71f0f;
@@ -48,7 +49,6 @@ const cssErrorMessage = css`
   text-transform: none;
   height: 30px;
   margin-bottom: 10px;
-  font-weight: normal;
 `;
 
 class Index extends Component {

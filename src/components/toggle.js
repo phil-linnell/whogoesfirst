@@ -10,7 +10,9 @@ const Toggle = ({ activeView, toggleView }) => {
   
     button {
       cursor: pointer;
-      font-weight: 600;
+      color: #fff;
+      font-weight: 700;
+      text-transform: uppercase;
     }
   `;
   const toggleButton = css`

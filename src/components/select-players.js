@@ -48,6 +48,8 @@ const SelectPlayers = ({ activeView, pool, selectFunc, canvasSize }) => {
               line-height: ${playerSize}px;
               transition: opacity ${durationPositionSet} ease-in-out;
               transform: rotate(-${angle * i + (360 - offset)}deg);
+              color: #fff;
+              font-weight: 700;
             }
           }
 
@@ -80,9 +82,11 @@ const SelectPlayers = ({ activeView, pool, selectFunc, canvasSize }) => {
           }
         `;
 
+        const accessibleName = activeView === "colour" ? `${player.name} player` : `${i + 1} players`; 
+
         return (
           <li key={`player-${i + 1}`} css={cssPlayerItem}>
-            <button className="selectButton" onClick={() => selectFunc(i)}>
+            <button className="selectButton" onClick={() => selectFunc(i)} aria-label={accessibleName}>
               <div className="selectMeepleWrapper"><IconMeeple /></div>
             </button>
           </li>
