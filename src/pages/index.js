@@ -12,7 +12,6 @@ const cssContainer = css`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 `;
 const cssLayoutTop = css`
   display: flex;
