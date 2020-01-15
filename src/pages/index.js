@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import Heading from "../components/heading";
 import SelectPlayers from "../components/select-players";
+import ShowWinner from "../components/show-winner";
 import Toggle from "../components/toggle";
 import options from "../data/options";
 import { css } from "@emotion/core"
-import ShowWinner from "../components/show-winner";
 
 const canvasSize = 226;
 const cssContainer = css`
@@ -43,10 +43,12 @@ const cssCalculateButton = css`
   font-weight: normal;
 `;
 const cssErrorMessage = css`
-  opacity: .7;
   color: #e71f0f;
-  font-size: 12px;
+  font-size: 13px;
   text-transform: none;
+  height: 30px;
+  margin-bottom: 10px;
+  font-weight: normal;
 `;
 
 class Index extends Component {

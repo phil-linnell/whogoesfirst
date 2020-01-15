@@ -58,28 +58,14 @@ html {
 body {
   font-family: Avenir, "Helvetica Neue", HelveticaNeue, Helvetica, Arial, sans-serif;
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
   min-height: 100%;
   background: #222;
   color: #fff;
   height: 100%;
   width: 100%;
   font-weight: 900;
-  text-transform: uppercase;
   margin: 0;
-}
-
-#root {
-  height: 100%;
-}
-
-#test {
-  background: #ccc;
-  padding: 100px;
-}
-
-input {
-  border: 1px solid #ccc;
 }
 
 h1 {
@@ -88,11 +74,7 @@ h1 {
 }
 
 .container {
-  height: 100vh;
-}
-
-.hidden {
-  opacity: 0 !important;
+  height: 100%;
 }
 
 #___gatsby,
