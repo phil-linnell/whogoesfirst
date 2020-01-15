@@ -49,7 +49,7 @@ const cssCalculateButton = css`
 `;
 const cssErrorMessage = css`
   color: #e71f0f;
-  font-size: 13px;
+  font-size: 14px;
   text-transform: none;
   height: 30px;
   margin-bottom: 10px;
@@ -97,15 +97,9 @@ class Index extends Component {
 
     return (
       <div css={cssContainer}>
-        <Helmet
-          title="Start Player App"
-          meta={[
-            {
-              name: "description",
-              content: "App to choose the starting player of a game"
-            }
-          ]}
-        >
+        <Helmet>
+          <title>Start Player App</title>
+          <meta name="description" content="App to choose the starting player of a game" />
           <link href="https://fonts.googleapis.com/css?family=Raleway:400,700&display=swap" rel="stylesheet" />
           <link rel="icon" type="image/png" sizes="128x128" href={faviconPNG128} />
           <link rel="icon" type="image/png" sizes="32x32" href={faviconPNG} />

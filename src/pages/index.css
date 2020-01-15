@@ -1,11 +1,16 @@
 * {
   box-sizing: border-box;
+  font-size: 14px;
 }
 
 ul, ol {
   margin: 0;
   padding: 0;
   list-style-type: none;
+}
+
+input, textarea, select, button {
+  font-size: 14px;
 }
 
 button {

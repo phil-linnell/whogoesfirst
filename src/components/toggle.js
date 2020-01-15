@@ -42,7 +42,7 @@ const Toggle = ({ activeView, toggleView }) => {
       <button onClick={toggleView}>
         Colour
       </button>
-      <button css={toggleButton} onClick={toggleView}>
+      <button css={toggleButton} onClick={toggleView} aria-label="Toggle View">
         <div />
       </button>
       <button onClick={toggleView}>

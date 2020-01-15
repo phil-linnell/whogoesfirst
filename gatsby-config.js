@@ -1,5 +1,16 @@
 module.exports = {
+  siteMetadata: {
+    title: "Start Player App",
+    siteUrl: "https://startplayer.app",
+    description: "App to choose the starting player of a game",
+  },
   plugins: [
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        policy: [{ userAgent: '*', allow: '/' }]
+      }
+    },
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-emotion`,
     {
