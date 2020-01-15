@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./index.styl";
 
 const randomOptions = [
   "The Last person to eat a KFC",

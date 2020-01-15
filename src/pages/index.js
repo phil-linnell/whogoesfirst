@@ -1,9 +1,13 @@
 import React, { Component } from "react";
+import Helmet from "react-helmet";
 import Heading from "../components/heading";
 import SelectPlayers from "../components/select-players";
-import ShowWinner from "../components/show-winner";
 import Toggle from "../components/toggle";
 import options from "../data/options";
+import faviconICO from "../../static/icon.ico";
+import faviconPNG from "../../static/icon-32.png";
+import faviconPNG128 from "../../static/icon-128.png";
+import "./index.css";
 import { css } from "@emotion/core"
 
 const canvasSize = 226;
@@ -50,6 +54,20 @@ const cssErrorMessage = css`
   height: 30px;
   margin-bottom: 10px;
 `;
+const cssActionButton = css`
+  display: block;
+  color: #fff;
+  background: rgba(255,255,255,.1);
+  border-radius: 20px;
+  height: 40px;
+  min-width: 60px;
+  padding: 0 20px;
+  margin: 0 auto;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+`;
 
 class Index extends Component {
   constructor(props) {
@@ -77,37 +95,43 @@ class Index extends Component {
         activeView === "colour" ? "You must select at least two colours" : "Select the total no. of people playing";
     }
 
-    console.log(winner);
-
-    const cssSelectPlayers = css`
-      display: ${winner ? "none" : "block"}
-    `;
-    const cssShowWinner = css`
-      display: ${winner ? "block" : "none"}
-    `;
-
     return (
       <div css={cssContainer}>
+        <Helmet
+          title="Start Player App"
+          meta={[
+            {
+              name: "description",
+              content: "App to choose the starting player of a game"
+            }
+          ]}
+        >
+          <link href="https://fonts.googleapis.com/css?family=Raleway:400,700&display=swap" rel="stylesheet" />
+          <link rel="icon" type="image/png" sizes="128x128" href={faviconPNG128} />
+          <link rel="icon" type="image/png" sizes="32x32" href={faviconPNG} />
+          <link rel="shortcut icon" href={faviconICO} />
+          <meta name="viewport" content="width=device-width" />
+        </Helmet>
         <div css={cssLayoutTop}>
-          <Heading activeView={activeView} />
+          <Heading activeView={activeView} winner={winner} />
         </div>
         <div css={cssLayoutMiddle}>
-          <div css={cssSelectPlayers}>
-            <SelectPlayers 
-              activeView={activeView} 
-              pool={pool} 
-              selectFunc={this.handleSelectPlayer}
-              canvasSize={canvasSize}
-            />
-            <button css={cssCalculateButton} onClick={this.handleGetWinner}>GO</button>
-          </div>
-          <div css={cssShowWinner}>
-            <ShowWinner activeView={activeView} winner={winner} canvasSize={canvasSize} />
-          </div>
+          <SelectPlayers 
+            activeView={activeView} 
+            pool={pool} 
+            selectFunc={this.handleSelectPlayer}
+            canvasSize={canvasSize}
+            winner={winner}
+          />
+          {!winner && <button css={cssCalculateButton} onClick={this.handleGetWinner}>GO</button>}
         </div>
         <div css={cssLayoutBottom}>
           <div css={cssErrorMessage}>{errorMessage}</div>
-          <Toggle activeView={activeView} toggleView={this.handleToggle} />
+          {winner ? (
+            <button onClick={() => this.handleResetView()} css={cssActionButton}>Reset</button>
+          ) : (
+            <Toggle activeView={activeView} toggleView={this.handleToggle} />
+          )}
         </div>
       </div>
     );

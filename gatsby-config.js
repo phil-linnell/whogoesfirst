@@ -1,24 +1,7 @@
-const nib = require("nib");
-
 module.exports = {
-  siteMetadata: {
-    title: "Start Player"
-  },
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-emotion`,
-    {
-      resolve: "gatsby-plugin-stylus",
-      options: {
-        use: [nib()]
-      }
-    },
-    {
-      resolve: `gatsby-plugin-layout`,
-      options: {
-        component: require.resolve(`./src/layouts/index.js`)
-      }
-    },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

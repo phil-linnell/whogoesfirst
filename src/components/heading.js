@@ -8,23 +8,27 @@ const cssH1 = css`
   margin-bottom: 30px;
   text-transform: uppercase;
 `;
-const extraText = css`
+const cssExtraText = css`
   color: #aaa;
   font-size: 15px;
   max-width: 280px;
   margin: 0 auto;
 `;
 
-const Heading = ({ activeView }) => (
+const Heading = ({ activeView, winner }) => (
   <div>
     <h1 css={cssH1}>Who goes first?</h1>
-    <div css={extraText}>
-      {activeView === "colour" ? (
-        <p>Select a colour for each player, <br />then press 'GO'.</p>
-      ) : (
-        <p>Select no. of players, assign a number to each player: 1, 2, 3..., then press 'GO'.</p>
-      )}
-    </div>
+    {winner ? (
+      <div />
+    ) : (
+      <div css={cssExtraText}>
+        {activeView === "colour" ? (
+          <p>Select a colour for each player, <br />then press 'GO'.</p>
+        ) : (
+          <p>Select no. of players, assign a number to each player: 1, 2, 3..., then press 'GO'.</p>
+        )}
+      </div>
+    )}
   </div>
 );
 
