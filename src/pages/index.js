@@ -9,9 +9,10 @@ import ShowWinner from "../components/show-winner";
 const canvasSize = 226;
 const cssContainer = css`
   margin: 0 auto;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 `;
 const cssLayoutTop = css`
   display: flex;
